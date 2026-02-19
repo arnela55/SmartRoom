@@ -1,0 +1,117 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  background-color: #BFB6A4;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 30px 10px;
+}
+
+#naslov {
+  font-size: 36px;
+  color: #2B3A2E;
+  font-weight: 700;
+}
+
+#podnaslov {
+  font-size: 16px;
+  color: #2E7D32;
+  font-weight: 500;
+}
+
+/* CONTAINER */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  max-width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(43, 58, 46, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  gap: 20px;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  gap: 15px;
+}
+
+.card {
+  flex: 1 1 45%;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+}
+
+.card h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.card p {
+  font-size: 20px;
+  font-weight: 600;
+  color: #C8E6C9;
+}
+
+/* LED INDICATOR */
+.led #ledIndicator {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #444;
+  transition: background-color 0.3s;
+}
+
+.led-on {
+  background-color: #FFD54F !important;
+}
+
+.led-off {
+  background-color: #555 !important;
+}
+
+/* STATUS */
+.status {
+  font-weight: 600;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 15px;
+  color: #2B3A2E;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .card {
+    flex: 1 1 100%;
+  }
+}
