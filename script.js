@@ -1,42 +1,22 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+const FIREBASE_URL = "https://smart-room-monitoring-d71cd-default-rtdb.europe-west1.firebasedatabase.app/room.json"; 
 
-// Firebase config (SAMO root URL – ne stavljati .json)
-const firebaseConfig = {
-  databaseURL: "https://smart-room-monitoring-d71cd-default-rtdb.europe-west1.firebasedatabase.app/"
-};
+async function fetchData() {
+  try {
+    const response = await fetch(FIREBASE_URL);
+    const data = await response.json();
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+    if (data) {
+      document.getElementById("temp").textContent = data.temperature ?? "--";
+      document.getElementById("hum").textContent = data.humidity ?? "--";
+      document.getElementById("motion").textContent = data.motion ? "Detected" : "No motion";
+      document.getElementById("light").textContent = data.dark ? "Dark" : "Bright";
+      document.getElementById("ledIndicator").textContent = data.led ? "ON 💡" : "OFF ❌";
+    }
+  } catch (error) {
+    console.log("Greška pri dohvaćanju podataka:", error);
+  }
+}
 
-// Referenca na "room" podatke
-const roomRef = ref(db, "room");
-
-// HTML elementi
-const tempEl = document.getElementById("temp");
-const humEl = document.getElementById("hum");
-const motionEl = document.getElementById("motion");
-const lightEl = document.getElementById("light");
-const ledEl = document.getElementById("ledIndicator");
-
-// Listen real-time
-onValue(roomRef, (snapshot) => {
-  const data = snapshot.val();
-  if (!data) return;
-
-  // Temperature & Humidity
-  tempEl.textContent = `${data.temperature ?? "--"} °C`;
-  humEl.textContent = `${data.humidity ?? "--"} %`;
-
-  // Motion
-  motionEl.textContent = data.motion ? "Detected" : "No motion";
-  motionEl.className = "status";
-
-  // Light
-  lightEl.textContent = data.dark ? "Dark" : "Bright";
-  lightEl.className = "status";
-
-  // LED
-  ledEl.className = data.led ? "led-on" : "led-off";
-});
+// Osvježava podatke svake 2 sekunde
+setInterval(fetchData, 2000);
+fetchData(); // odmah prva provjera
